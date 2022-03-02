@@ -32,7 +32,7 @@ namespace NavigationViewCrashes
 
             for (int i = 0; i < MenusCount; i++)
             {
-                Menus.Add(new Menu { Name = $"Menu {i}", Icon = new FontIconSource { Glyph = "\uE783" } });
+                Menus.Add(new Menu { Name = $"TopMenu {i}", Icon = new FontIconSource { Glyph = "\uE783" } });
             }
 
             BuildNestedMenus(Menus, 0);
@@ -53,12 +53,12 @@ namespace NavigationViewCrashes
                 {
                     if (i % 2 == 0)
                     {
-                        menu.SubMenus.Add(new Menu { Name = $"Menu {i}", Icon = new FontIconSource { Glyph = "\uE783" } });
+                        menu.SubMenus.Add(new Menu { Name = $"FontIcon {i}", Icon = new FontIconSource { Glyph = "\uE783" } });
 
                     }
                     else
                     {
-                        menu.SubMenus.Add(new Menu { Name = $"Menu {i}", Icon = new BitmapIconSource { ShowAsMonochrome = false, UriSource = new Uri("ms-appx:///Assets/error.png") } });
+                        menu.SubMenus.Add(new Menu { Name = $"BitmapIcon {i}", Icon = new BitmapIconSource { ShowAsMonochrome = false, UriSource = new Uri("ms-appx:///Assets/error.png") } });
                     }
                 }
 
