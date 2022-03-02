@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 
 namespace NavigationViewCrashes
@@ -9,15 +10,13 @@ namespace NavigationViewCrashes
     {
         public string Name { get; set; }
         public IconSource Icon { get; set; }
-
         public ObservableCollection<Menu> SubMenus { get; set; }
-
     }
 
     public sealed partial class MainPage : Page
     {
-        private const int MaxNestingDepth = 5;
-        private const int SubMenusCount = 5;
+        private const int MaxNestingDepth = 8;
+        private const int MenusCount = 4;
 
         ObservableCollection<Menu> Menus { get; set; }
 
@@ -31,7 +30,7 @@ namespace NavigationViewCrashes
         {
             Menus = new ObservableCollection<Menu>();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < MenusCount; i++)
             {
                 Menus.Add(new Menu { Name = $"Menu {i}", Icon = new FontIconSource { Glyph = "\uE783" } });
             }
@@ -50,9 +49,17 @@ namespace NavigationViewCrashes
             {
                 menu.SubMenus = new ObservableCollection<Menu>();
 
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < MenusCount; i++)
                 {
-                    menu.SubMenus.Add(new Menu { Name = $"Menu {i}", Icon = new FontIconSource { Glyph = "\uE783" } });
+                    if (i % 2 == 0)
+                    {
+                        menu.SubMenus.Add(new Menu { Name = $"Menu {i}", Icon = new FontIconSource { Glyph = "\uE783" } });
+
+                    }
+                    else
+                    {
+                        menu.SubMenus.Add(new Menu { Name = $"Menu {i}", Icon = new BitmapIconSource { ShowAsMonochrome = false, UriSource = new Uri("ms-appx:///Assets/error.png") } });
+                    }
                 }
 
                 BuildNestedMenus(menu.SubMenus, currentNestingDepth + 1);
